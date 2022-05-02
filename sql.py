@@ -1,18 +1,24 @@
+# -*- coding: utf8 -*-
 import sqlite3
 
 class SQL:
 
     def __init__(self, database):
-        """Подключаемся к БД и сохраняем курсор соединения"""
+        """РџРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р‘Р” Рё СЃРѕС…СЂР°РЅСЏРµРј РєСѓСЂСЃРѕСЂ СЃРѕРµРґРёРЅРµРЅРёСЏ"""
         self.connection = sqlite3.connect(database)
         self.cursor = self.connection.cursor()
 
-    def get_flag(self, site_id):
-        """Получаем флаг в очереди"""
+    def get_flag(self, id):
+        """РџРѕР»СѓС‡Р°РµРј С„Р»Р°Рі РІ РѕС‡РµСЂРµРґРё"""
         with self.connection:
-            return self.cursor.execute("SELECT * FROM `user_info` WHERE `site_id` = ?", (site_id,)).fetchall()
+            return self.cursor.execute("SELECT * FROM `user_info` WHERE `id` = ?", (id,)).fetchall()[0][3]
 
-    def get_pos(self, site_id):
-        """Получаем место в очереди"""
+    def get_pos(self, id):
+        """РџРѕР»СѓС‡Р°РµРј РјРµСЃС‚Рѕ РІ РѕС‡РµСЂРµРґРё"""
         with self.connection:
-            return self.cursor.execute("SELECT * FROM `user_info` WHERE `site_id` = ?", (site_id,)).fetchall()
+            return self.cursor.execute("SELECT * FROM `user_info` WHERE `id` = ?", (id,)).fetchall()[0][1]
+
+    def get_fio(self, id):
+        """РџРѕР»СѓС‡Р°РµРј РјРµСЃС‚Рѕ РІ РѕС‡РµСЂРµРґРё"""
+        with self.connection:
+            return self.cursor.execute("SELECT * FROM `user_info` WHERE `id` = ?", (id,)).fetchall()[0][0]

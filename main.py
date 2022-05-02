@@ -1,4 +1,4 @@
-import requests
+
 id = 0
 name = ""
 q = []
